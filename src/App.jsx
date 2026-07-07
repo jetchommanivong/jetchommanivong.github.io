@@ -489,9 +489,7 @@ function CaseStudyModal({ project, onClose }) {
             {/* Header */}
             <div>
               <div className="project-card__meta">
-                <span className="project-card__role">{project.role}</span>
-                <span className="project-card__year">{project.year}</span>
-              </div>
+                <span className="project-card__role">{project.role}</span>              </div>
               <h2 className="modal__name">{project.name}</h2>
               <p className="modal__tagline">{project.tagline}</p>
             </div>
