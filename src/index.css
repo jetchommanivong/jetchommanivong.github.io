@@ -1,0 +1,40 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0c0c0b;
+  --text:     #f0efeb;
+  --text-2:   #9a9a94;
+  --text-3:   #5c5c58;
+  --border:   #222220;
+  --surface:  #161614;
+  --accent:   #FF6B35;
+  --accent-dk:#E55A25;
+  --font-h:   'Space Grotesk', system-ui, sans-serif;
+  --font-b:   'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-b);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a    { color: inherit; text-decoration: none; }
+ul   { list-style: none; }
+button { background: none; border: none; cursor: pointer; font: inherit; }
+img  { display: block; max-width: 100%; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 24px; }
+}
