@@ -616,7 +616,6 @@ function ProjectCard({ project, index, onClick }) {
       <div className="project-card__content">
         <div className="project-card__meta">
           <span className="project-card__role">{project.role}</span>
-          <span className="project-card__year">{project.year}</span>
         </div>
 
         <h3 className="project-card__name">{project.name}</h3>
