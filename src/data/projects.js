@@ -37,7 +37,7 @@ export const PROJECTS = [
     description:
       'End-to-end design and build of a booking system for a sole-operator nail studio. ' +
       'Validated with a 15-person usability study and iterated based on findings.',
-    tools: ['Figma', 'React', 'Firebase', 'Vite'],
+    tools: ['React', 'Firebase', 'Vite'],
     highlights: ['15-person usability study', '4.9 / 5 satisfaction', 'Live client site'],
     outcome: 'Live at pixelpolish.com.au',
     url: 'https://pixelpolish.com.au',
@@ -47,7 +47,7 @@ export const PROJECTS = [
     meta: [
       { label: 'Role', value: 'UX Designer & Developer' },
       { label: 'Team', value: 'Solo, with the studio owner' },
-      { label: 'Type', value: 'Client project — shipped' },
+      { label: 'Type', value: 'Client project' },
       { label: 'Focus', value: 'Booking flow, pricing clarity, admin tooling' },
     ],
 
@@ -62,7 +62,7 @@ export const PROJECTS = [
             items: [
               {
                 label: 'Challenge',
-                text: 'Tier-based pricing and automatic time blocking are complex to model — and that complexity had to stay invisible to clients.',
+                text: 'Tier-based pricing and automatic time blocking are complex to model - and that complexity had to stay invisible to clients.',
               },
               {
                 label: 'My role',
@@ -78,7 +78,7 @@ export const PROJECTS = [
             type: 'figure',
             src: '/projects/pixelpolish-home.png',
             alt: 'PixelPolish home page with studio branding, service preview, and a primary book now button',
-            caption: 'The home page. One primary action — everything else is secondary to getting a client into the booking flow.',
+            caption: 'The home page. The studio branding is front and centre, with a clear call to action.',
             wide: true,
           },
         ],
@@ -126,11 +126,13 @@ export const PROJECTS = [
                 phase: 'Design',
                 detail:
                   "Mapped the operator's workflow first: how she prices, blocks time, and handles " +
-                  'cancellations. Then translated that into a client-facing Figma prototype focused ' +
-                  'on low-friction booking that handled edge cases automatically.',
+                  'cancellations. Rather than prototyping in a separate design tool, I drafted ' +
+                  'directly in React — rough versions of each screen in the browser, so layout and ' +
+                  'pricing logic could be pressure-tested together from the first draft.',
                 src: '/projects/pixelpolish-design-prices.png',
-                alt: 'Figma design of the pricing page showing service tiers laid out as cards',
-                caption: 'Pricing in Figma. Tiers had to read as a simple menu, not as a rules engine.',
+                alt: 'Early draft of the pricing page showing service tiers laid out as cards',
+                caption:
+                  'An early draft of pricing. Tiers had to read as a simple menu, not as a rules engine.',
               },
               {
                 phase: 'Build',
@@ -176,10 +178,11 @@ export const PROJECTS = [
           },
           {
             type: 'slot',
-            title: 'Evidence: Figma → shipped',
+            title: 'Evidence: rough draft → shipped',
             hint:
-              'A side-by-side of the Figma prototype and the live screen. Showing what changed between ' +
-              'design and build — and why — is the single strongest thing you can add here.',
+              'A side-by-side of an early React draft and the live screen. Drafting in code means your ' +
+              'iteration history lives in git — screenshot an early commit. Showing what changed and ' +
+              'why is the single strongest thing you can add here.',
             tall: true,
           },
         ],
@@ -329,7 +332,7 @@ export const PROJECTS = [
       'Brand identity and website for a Developmental Education practitioner. ' +
       'Translated a deeply personal brief, centred on a dandelion motif, into a ' +
       'warm, inclusive identity and a fully deployed site.',
-    tools: ['Figma', 'Adobe Illustrator', 'React', 'Vite', 'React Router'],
+    tools: ['Adobe Illustrator', 'React', 'Vite', 'React Router'],
     highlights: ['Logo built from scratch', 'Full brand system', 'Live client site'],
     outcome: 'Delivered to client · live at evitasde.com',
     url: 'https://www.evitasde.com',
@@ -358,7 +361,7 @@ export const PROJECTS = [
               },
               {
                 label: 'My role',
-                text: 'Logo design in Illustrator, the full visual system in Figma, copywriting, and the React build.',
+                text: 'Logo design in Illustrator, the visual system drafted straight into React, copywriting, and the build.',
               },
               {
                 label: 'Outcome',
@@ -442,8 +445,9 @@ export const PROJECTS = [
             type: 'slot',
             title: 'Evidence: the palette & type scale',
             hint:
-              'Export the colour and typography frames from your Figma file. A visible design system reads ' +
-              'as rigour — and it is the artefact hiring managers look for.',
+              'A swatch sheet of the six value colours with their hex values, and the heading / body type ' +
+              'scale. Pull them straight from your CSS variables. A visible design system reads as rigour ' +
+              '— and it is the artefact hiring managers look for.',
           },
         ],
       },
@@ -526,8 +530,10 @@ export const PROJECTS = [
                 detail:
                   'Created the dandelion handprint logo from scratch in Adobe Illustrator, ' +
                   "drawing directly from Eva's university slides and her vision of the handprint " +
-                  'wall. The mark became the foundation for the entire visual system, built out ' +
-                  "in Figma. Language was crafted deliberately: 'play-based' was removed and " +
+                  'wall. The mark became the foundation for the entire visual system, which I ' +
+                  'drafted straight into React rather than mocking up separately — rough versions ' +
+                  'in the browser meant Eva reviewed something real, not a static picture of it. ' +
+                  "Language was crafted deliberately: 'play-based' was removed and " +
                   "copy rewritten to emphasise lifespan practice, with 'people of all ages and " +
                   "all abilities' as the consistent message across every page.",
               },
