@@ -38,7 +38,7 @@ export const PROJECTS = [
       'End-to-end design and build of a booking system for a sole-operator nail studio. ' +
       'Validated with a 15-person usability study and iterated based on findings.',
     tools: ['React', 'Firebase', 'Vite'],
-    highlights: ['15-person usability study', '4.9 / 5 satisfaction', 'Live client site'],
+    highlights: ['Clean, intuitive interface', 'Seamless booking experience', 'Admin view for sole operator'],
     outcome: 'Live at pixelpolish.com.au',
     url: 'https://pixelpolish.com.au',
     color: '#FF6B35',
@@ -94,8 +94,10 @@ export const PROJECTS = [
             text:
               'A sole-operator nail studio needed a complete booking system she could manage herself, ' +
               'with tier-based pricing, automatic time blocking, and an admin view for appointments ' +
-              'and availability. The challenge was making that complexity invisible to clients while ' +
-              'giving the owner full control, without requiring manual quoting for every booking.',
+              'and availability. Previously she handled bookings via Instagram DMs, which posed their own challenges: ' +
+              'DMs from strangers will appear in her reqested tab and not show as a notification, Having to converse with ' +
+              'each client to quote a price and confirm a time was time-consuming, and she had no way to track her availability or manage appointments. ' +
+              'Additionally the flow was confusing and unprofessional so the site needed to be simple and intuitive for clients, while also being easy for her to manage herself.'
           },
           {
             type: 'callout',
@@ -127,7 +129,7 @@ export const PROJECTS = [
                 detail:
                   "Mapped the operator's workflow first: how she prices, blocks time, and handles " +
                   'cancellations. Rather than prototyping in a separate design tool, I drafted ' +
-                  'directly in React — rough versions of each screen in the browser, so layout and ' +
+                  'directly in React with rough versions of each screen in the browser, so layout and ' +
                   'pricing logic could be pressure-tested together from the first draft.',
                 src: '/projects/pixelpolish-design-prices.png',
                 alt: 'Early draft of the pricing page showing service tiers laid out as cards',
@@ -172,7 +174,7 @@ export const PROJECTS = [
               {
                 src: '/projects/pixelpolish-booking-timeslot.png',
                 alt: 'Time slot picker showing available appointment times for a selected date',
-                caption: 'Step two: only genuinely available slots appear — duration is derived from the service.',
+                caption: 'Step two: only genuinely available slots appear - duration is derived from the service.',
               },
             ],
           },

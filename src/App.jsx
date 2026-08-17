@@ -198,9 +198,6 @@ function Work() {
       <div className="container">
         <div className="section__header">
           <h2 className="section__title">Selected Work</h2>
-          <p className="section__sub">
-            Three case studies — the brief, the process, the research, and what shipped.
-          </p>
         </div>
 
         <div className="project-list">
