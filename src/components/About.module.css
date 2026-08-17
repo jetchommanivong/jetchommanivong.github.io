@@ -1,0 +1,103 @@
+.section {
+  padding: 120px 48px;
+  background: transparent;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.left {
+  /* left column */
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--chalk);
+  margin: 14px 0 28px;
+  letter-spacing: -0.035em;
+}
+
+.bio {
+  font-size: 1rem;
+  color: var(--chalk-2);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.interestTag {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--chalk-2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 6px 14px;
+  letter-spacing: 0.01em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.interestTag:hover {
+  border-color: var(--ink-accent);
+  color: var(--ink-accent);
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.photoBlock {
+  /* */
+}
+
+.photoPlaceholder {
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: border-color 0.25s;
+}
+
+.photoPlaceholder:hover {
+  border-color: rgba(0, 0, 0, 0.28);
+}
+
+.photoIcon {
+  font-size: 2.5rem;
+  color: var(--chalk-3);
+}
+
+.photoPlaceholder p {
+  font-size: 0.82rem;
+  color: var(--chalk-3);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}

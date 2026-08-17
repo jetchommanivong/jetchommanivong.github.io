@@ -1,0 +1,40 @@
+.wrap {
+  display: inline-block;
+  position: relative;
+  line-height: 0;
+}
+
+/* Bobbing layer — owns the float animation and the resting rotation. */
+.float {
+  animation-name: holdFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+/* Static holds still need their rotation, just without the bob. */
+.still {
+  transform: rotate(var(--rot, 0deg));
+}
+
+/* Scale layer — kept separate so hover does not fight the float animation. */
+.inner {
+  position: relative;
+  line-height: 0;
+}
+
+.img {
+  display: block;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: filter 0.28s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none;
+    transform: rotate(var(--rot, 0deg));
+  }
+}

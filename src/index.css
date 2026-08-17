@@ -1,40 +1,137 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap');
 
 :root {
-  --bg:       #0c0c0b;
-  --text:     #f0efeb;
-  --text-2:   #9a9a94;
-  --text-3:   #5c5c58;
-  --border:   #222220;
-  --surface:  #161614;
-  --accent:   #FF6B35;
-  --accent-dk:#E55A25;
-  --font-h:   'Space Grotesk', system-ui, sans-serif;
-  --font-b:   'Inter', system-ui, sans-serif;
+  --bg: #DCDAD3;
+  --wall: #D0CEC7;
+  --wall-alt: rgba(30, 26, 22, 0.04);
+  --panel-line: rgba(30, 26, 22, 0.12);
+
+  --chalk: #1E1A16;
+  --chalk-2: #5C5850;
+  --chalk-3: #AEA89E;
+  --chalk-4: rgba(30, 26, 22, 0.05);
+
+  /* Deep violet used for the name and section rules */
+  --ink-accent: #4A2E9E;
+
+  /* Sampled from the lit face of each numbered hold photo, so UI accents sit
+     in the same family as the imagery instead of fighting it. */
+  --hold-purple: #7D628C;
+  --hold-yellow: #E8A524;
+  --hold-teal: #2F6669;
+  --hold-orange: #CE5C40;
+  --hold-blue: #315075;
+
+  /* Route accents, pulled toward the photographed holds. The previous neon
+     #FF6B35 / #A855F7 read as a different material next to the imagery. */
+  --orange: #CE5C40;
+  --orange-light: #E07A5F;
+  --orange-dark: #A03D25;
+  --orange-glow: rgba(206, 92, 64, 0.5);
+  --orange-dim: rgba(206, 92, 64, 0.12);
+
+  --purple: #7D628C;
+  --purple-light: #9C82AA;
+  --purple-dark: #5A4470;
+  --purple-glow: rgba(125, 98, 140, 0.5);
+  --purple-dim: rgba(125, 98, 140, 0.12);
+
+  --hold-neutral: #8C7E70;
+  --teal: #0D9488;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius: 4px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html { scroll-behavior: smooth; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: var(--font-b);
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text);
-  background: var(--bg);
+  background-color: var(--bg);
+  /* screw-hole dots — the tell-tale sign of a climbing wall */
+  background-image: radial-gradient(circle, rgba(30, 20, 10, 0.22) 1.3px, transparent 1.3px);
+  background-size: 50px 48px;
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-a    { color: inherit; text-decoration: none; }
-ul   { list-style: none; }
-button { background: none; border: none; cursor: pointer; font: inherit; }
-img  { display: block; max-width: 100%; }
-
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 48px;
+#root {
+  min-height: 100vh;
 }
 
-@media (max-width: 640px) {
-  .container { padding: 0 24px; }
+::selection {
+  background: var(--orange);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--chalk-3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--chalk-2);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@keyframes holdFloat {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+}
+
+.section-tag {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
 }

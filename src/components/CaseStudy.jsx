@@ -210,11 +210,12 @@ export default function CaseStudy({ project, nextProject, onClose, onNavigate })
     return () => { document.body.style.overflow = previous }
   }, [])
 
-  /* Start at the top whenever a different project is opened */
+  /* Start at the top whenever a different project is opened. The active section
+     is not reset here — scrolling to 0 fires the read effect below, which
+     recomputes it from the new sections. */
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0 })
-    setActiveSection(project.sections[0]?.id)
-  }, [project.id, project.sections])
+  }, [project.id])
 
   /* Read progress + which section is in view */
   useEffect(() => {

@@ -1,0 +1,386 @@
+.hero {
+  position: relative;
+  /* The route needs vertical room — a short landscape viewport would otherwise
+     crush the five holds into each other. */
+  min-height: max(920px, 100vh);
+  padding-bottom: 96px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* The wall is the coordinate space every absolutely placed prop sits in.
+   `--wall-scale` shrinks the photographed props on narrower viewports; the
+   percentage positions stay put, so the route keeps its shape but stops
+   crowding itself. */
+.wall {
+  position: absolute;
+  inset: 0 0 96px 0;
+  --wall-scale: 1;
+}
+
+/* ── Layers ──────────────────────────────────────────────────────────────── */
+
+.volume {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(var(--wall-scale));
+  z-index: 0;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+.scatterHold {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(var(--wall-scale));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.routeLines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.routeHold {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(var(--wall-scale));
+  z-index: 4;
+}
+
+/* ── Number plate on each big hold ───────────────────────────────────────── */
+
+.holdLabel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(calc(-50% + var(--lx, 0px)), calc(-50% + var(--ly, 0px)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  line-height: 1;
+  /* Tight dark halo plus a soft drop. The halo is what keeps white type legible
+     on the yellow hold, which is far lighter than the other four. */
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.55),
+    0 2px 9px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.holdNum {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.holdName {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+/* ── Taped notes ─────────────────────────────────────────────────────────── */
+
+/* `--nx` / `--ny` are pixel coordinates measured off the note's hold; `--ax` /
+   `--ay` pull the note's near edge onto that point for whichever side it is on. */
+.note {
+  position: absolute;
+  left: var(--nx);
+  top: var(--ny);
+  transform: translate(var(--ax, 0%), var(--ay, -50%)) rotate(var(--tilt, -1.2deg));
+  z-index: 5;
+  width: 150px;
+  padding: 16px 14px 14px;
+  background: #F3EFE2;
+  border-radius: 2px;
+  box-shadow: 2px 4px 14px rgba(28, 22, 16, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note:hover {
+  transform: translate(var(--ax, 0%), var(--ay, -50%)) rotate(0deg) translateY(-3px);
+  box-shadow: 4px 8px 22px rgba(28, 22, 16, 0.22), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+.note p {
+  font-family: 'Caveat', var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.42;
+  color: #3B352C;
+}
+
+.noteTape {
+  position: absolute;
+  top: -8px;
+  left: 22px;
+  width: 42px;
+  height: 17px;
+  border-radius: 1px;
+  opacity: 0.78;
+  transform: rotate(-4deg);
+}
+
+/* ── Headline ────────────────────────────────────────────────────────────── */
+
+.content {
+  position: absolute;
+  left: 7%;
+  top: 15%;
+  z-index: 6;
+  max-width: min(460px, 38%);
+}
+
+.greeting {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--chalk);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: -0.038em;
+  line-height: 0.96;
+  color: var(--ink-accent);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  margin-top: 18px;
+}
+
+.rule {
+  display: block;
+  width: 54px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ink-accent);
+  transform-origin: left center;
+  margin: 14px 0 22px;
+}
+
+.tagline {
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--chalk-2);
+  max-width: 340px;
+  margin-bottom: 34px;
+}
+
+/* Dark tag with a pointed right edge, matching the reference. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  color: #F2EFE7;
+  background: #26262A;
+  padding: 16px 34px 16px 26px;
+  border: none;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+  box-shadow: 0 5px 14px rgba(28, 22, 16, 0.26);
+  transition: background 0.22s ease;
+}
+
+.cta:hover {
+  background: #35353B;
+}
+
+/* ── Props ───────────────────────────────────────────────────────────────── */
+
+.rope {
+  position: absolute;
+  left: 2%;
+  top: -20px;
+  width: 60px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px rgba(28, 22, 16, 0.28));
+}
+
+.ropeCord {
+  width: 60px;
+  height: 262px;
+}
+
+/* Pulled up so the clip overlaps the knot rather than hanging below it. */
+.carabiner {
+  margin-top: -14px;
+  margin-left: 8px;
+}
+
+.chalkboard {
+  position: absolute;
+  right: 3%;
+  bottom: 2%;
+  z-index: 5;
+  width: 232px;
+  padding: 20px 18px 26px;
+  background: linear-gradient(150deg, #2E3134, #24262A);
+  border-radius: 3px;
+  box-shadow: 3px 6px 18px rgba(28, 22, 16, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform: rotate(-1deg);
+  pointer-events: none;
+}
+
+.chalkboard ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chalkboard li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: rgba(240, 236, 226, 0.86);
+}
+
+.chalkboard li span {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: rgba(240, 236, 226, 0.6);
+  flex-shrink: 0;
+}
+
+.chalkHeart {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  font-size: 0.9rem;
+  color: #8E7BC4;
+}
+
+/* ── Tablet: pull the route in and shrink the notes ──────────────────────── */
+
+@media (max-width: 1440px) {
+  .wall {
+    --wall-scale: 0.88;
+  }
+}
+
+@media (max-width: 1180px) {
+  .wall {
+    --wall-scale: 0.76;
+  }
+
+  .content {
+    max-width: min(400px, 44%);
+  }
+
+  .note {
+    width: 126px;
+    padding: 13px 11px 11px;
+  }
+
+  .note p {
+    font-size: 0.86rem;
+  }
+
+  .chalkboard {
+    width: 196px;
+    padding: 16px 14px 20px;
+  }
+
+  .chalkboard li {
+    font-size: 0.64rem;
+    gap: 8px;
+  }
+}
+
+/* ── Mobile: the wall becomes a stacked list ─────────────────────────────── */
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding: 120px 24px 100px;
+  }
+
+  .wall {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content {
+    position: static;
+    order: -1;
+    max-width: 100%;
+    margin-bottom: 56px;
+  }
+
+  .tagline {
+    max-width: 100%;
+  }
+
+  .routeHold {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin-bottom: 26px;
+  }
+
+  /* Decoration is noise at this width — the route itself is the content. */
+  .volume,
+  .scatterHold,
+  .routeLines,
+  .note,
+  .rope,
+  .chalkboard {
+    display: none;
+  }
+}
