@@ -61,34 +61,27 @@
   gap: 40px;
 }
 
+/* The portrait is mounted on the wall like everything else here: squared off
+   and lifted a little off the surface.
+
+   It keeps its own 2:3 shape rather than being forced into a frame — a crop
+   this tight on a portrait loses the top of the head. The width cap is what
+   keeps the column honest instead: at full column width a 2:3 photo runs
+   ~640px tall and towers over the copy beside it. */
 .photoBlock {
-  /* */
+  position: relative;
 }
 
-.photoPlaceholder {
-  border: 1px dashed rgba(0, 0, 0, 0.15);
+.photo {
+  width: 100%;
+  max-width: 330px;
+  height: auto;
+  margin: 0 auto;
   border-radius: 12px;
-  height: 340px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  transition: border-color 0.25s;
-}
-
-.photoPlaceholder:hover {
-  border-color: rgba(0, 0, 0, 0.28);
-}
-
-.photoIcon {
-  font-size: 2.5rem;
-  color: var(--chalk-3);
-}
-
-.photoPlaceholder p {
-  font-size: 0.82rem;
-  color: var(--chalk-3);
+  box-shadow:
+    0 14px 32px rgba(28, 22, 16, 0.22),
+    0 2px 6px rgba(28, 22, 16, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 
 @media (max-width: 768px) {

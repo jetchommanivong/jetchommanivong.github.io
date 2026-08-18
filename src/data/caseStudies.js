@@ -152,7 +152,8 @@ export const caseStudies = [
                 alt:
                   'Early browser draft of the pricing page under the working name Nail Studio, with design tiers described in text only',
                 caption:
-                  'The first draft, rough in the browser under a working name. Tiers had to read as a simple menu, not a rules engine — but the page still signed off with "send me your inspo and I\'ll quote you", the exact conversation the build was meant to remove.',
+                  'The first draft of the pricing page. Kept simple to display prices but lacked proper imagery which would mean clients ' + 
+                  'would still need to message or figure out on their own what design tier they woudl fall under.',
               },
               {
                 phase: 'Build',
@@ -176,7 +177,7 @@ export const caseStudies = [
                   'upload reference images against each service level.',
                 src: '/projects/pixelpolish-gallery.png',
                 alt: 'Gallery page showing example nail sets grouped under each pricing tier',
-                caption: 'The gallery shipped in response to research — each tier now has visual reference.',
+                caption: 'The gallery not only served as a way to display work, but also for reference to what kind of designs could be made',
               },
             ],
           },
@@ -205,14 +206,14 @@ export const caseStudies = [
                 alt:
                   'Early draft of the four-step booking wizard, with the design tier step listed as text-only cards',
                 caption:
-                  'Draft: the four-step spine was right early, but choosing a tier meant reading a description and guessing.',
+                  'Draft: the four-step spine was right early, but choosing a tier meant reading a description and guessing without clear pictures for each tier',
               },
               {
                 src: '/projects/pixelpolish-design-prices.png',
                 alt:
                   'Shipped tier selection, each tier carrying a carousel of real nail sets and a duration estimate',
                 caption:
-                  'Shipped: every tier now carries a carousel of real sets and a time estimate — the precise gap the 3 uncertain participants named.',
+                  'Shipped: every tier now carries a carousel of real sets and a time estimate solving issues with uncertaity',
               },
             ],
           },

@@ -45,10 +45,15 @@ export default function About() {
 
         <div className={styles.right}>
           <div className={styles.photoBlock}>
-            <div className={styles.photoPlaceholder}>
-              <span className={styles.photoIcon}>⬡</span>
-              <p>Drop a photo of yourself here</p>
-            </div>
+            <img
+              className={styles.photo}
+              src="/portrait.jpg"
+              alt="Jet Chommanivong"
+              width={1365}
+              height={2048}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
       </div>

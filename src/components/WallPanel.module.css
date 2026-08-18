@@ -9,9 +9,9 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  margin: 0 auto 28px;
-  max-width: 1320px;
-  border-radius: 16px;
+  /* Full bleed: the wall surface is the room the site is built in, so it runs
+     edge to edge the way the hero does. Only the copy inside it is a column. */
+  margin: 0 0 28px;
 
   /* Cleared by the mat, which is absolutely positioned at the base. */
   padding-bottom: 84px;
@@ -224,6 +224,16 @@
   --gutter: max(var(--pad), (100% - var(--content)) / 2);
   --hold-cap: 130px;
   --hold-base: min(var(--gutter), var(--hold-cap));
+
+  /* Now that the wall is full bleed, the margin beside the copy keeps growing
+     with the viewport, and holds spread across it drift off toward the screen
+     edges. The band is the strip of margin the dressing actually uses: the
+     whole gutter until it exceeds the cap, then a fixed strip pinned to the
+     edge of the copy, so the holds keep hugging the text on a wide monitor.
+     Keeping the cap above --hold-cap means a hold that fits the band still
+     fits the gutter, so nothing can reach the text. */
+  --band-cap: 300px;
+  --band: min(var(--gutter), var(--band-cap));
 }
 
 .gutterHold {
@@ -233,8 +243,11 @@
   transform: translate(-50%, -50%);
 }
 
-.gutterHold[data-side='left']  { left: calc(var(--gutter) * var(--t)); }
-.gutterHold[data-side='right'] { left: calc(100% - var(--gutter) * var(--t)); }
+/* `--t` runs across the band from the outer edge inward, so the hold sits at
+   --gutter - --band * (1 - t) from its side: the same placement as before
+   whenever the band is the whole gutter. */
+.gutterHold[data-side='left']  { left: calc(var(--gutter) - var(--band) * (1 - var(--t))); }
+.gutterHold[data-side='right'] { left: calc(100% - var(--gutter) + var(--band) * (1 - var(--t))); }
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -257,7 +270,6 @@
 
 @media (max-width: 900px) {
   .panel {
-    border-radius: 12px;
     margin-bottom: 18px;
     padding-bottom: 56px;
   }
