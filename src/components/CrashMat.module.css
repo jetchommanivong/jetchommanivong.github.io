@@ -1,0 +1,46 @@
+/* The padded floor at the base of a wall, with gear resting on it. */
+.mat {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--mat-height, 96px);
+  z-index: 7;
+  background: linear-gradient(180deg, #34343A 0%, #232327 14%, #1C1C20 100%);
+  box-shadow: 0 -6px 22px rgba(28, 22, 16, 0.28);
+  /* Gear stands taller than the mat and must not be clipped by it. */
+  overflow: visible;
+}
+
+/* Seam between the two mat sections */
+.mat::after {
+  content: '';
+  position: absolute;
+  left: var(--seam, 58%);
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Each item stands on the mat: anchored by its base, not its centre, so props
+   of different heights all sit on the same floor line. */
+.item {
+  position: absolute;
+  left: var(--x);
+  bottom: var(--sink, 14px);
+  transform: translateX(-50%);
+  line-height: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .mat {
+    height: var(--mat-height-sm, 60px);
+  }
+
+  /* Gear reads as clutter at this width — the wall itself is the content. */
+  .item {
+    display: none;
+  }
+}
