@@ -1,9 +1,42 @@
 import { motion } from 'framer-motion';
+import WallPanel from './WallPanel';
+import { POOLS, FEATURES } from '../data/wallAssets';
 import styles from './Contact.module.css';
+
+/* Matches .inner's max-width. This is the narrowest column on the site, which
+   leaves the deepest margins — so this wall needs the FEWEST holds, not the
+   most. It closes the page and sits directly above the footer; a crowded wall
+   here reads as noise rather than as a closing note. */
+const CONTENT = 700;
+
+const MAT = [{ prop: 'carabiner', x: 92, width: 30, rot: 74, sink: 8 }];
+
+/* The last wall in the gym — you land here, so this mat is the site footer. */
+const FOOTER = (
+  <div className={styles.footer}>
+    <p>Designed &amp; built by Jet Chommanivong · {new Date().getFullYear()}</p>
+    <p className={styles.footerSub}>UX Design · Bachelor of IT</p>
+  </div>
+);
 
 export default function Contact() {
   return (
-    <section id="contact" className={styles.section}>
+    <WallPanel
+      id="contact"
+      variant="cave"
+      accent="var(--hold-blue)"
+      seed={53}
+      pool={POOLS.cool}
+      featurePool={FEATURES.cool}
+      featureCount={1}
+      holdCount={4}
+      contentWidth={CONTENT}
+      holdCap={104}
+      matItems={MAT}
+      matHeight={96}
+      footer={FOOTER}
+      className={styles.section}
+    >
       <div className={styles.inner}>
         <motion.p
           className="section-tag"
@@ -61,11 +94,6 @@ export default function Contact() {
           </a>
         </motion.div>
       </div>
-
-      <footer className={styles.footer}>
-        <p>Designed & built by Jet Chommanivong · {new Date().getFullYear()}</p>
-        <p className={styles.footerSub}>UX Design · Bachelor of IT</p>
-      </footer>
-    </section>
+    </WallPanel>
   );
 }

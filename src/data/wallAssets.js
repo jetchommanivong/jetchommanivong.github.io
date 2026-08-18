@@ -233,93 +233,50 @@ export const volumes = [
   { vol: VOLUME.tall, x: 3,  y: 92, width: 124, rot: 6 },
 ];
 
+/* ── Scatter pools ───────────────────────────────────────────────────────── */
+
+/**
+ * Hold pools for the decorative scatter, grouped by tone.
+ *
+ * Positions are no longer written by hand — lib/scatter.js places them from a
+ * seed, and each wall picks the pool that suits it. Giving every wall its own
+ * palette is what stops five walls of identical grey plastic reading as one
+ * long wall with gaps in it.
+ *
+ * Keep pools to small and mid-size holds. The big feature holds are load-
+ * bearing in the composition and belong in a route, not in the dressing.
+ */
+export const POOLS = {
+  neutral: [SMALL.grey1, SMALL.grey2, SMALL.grey3, SMALL.grey4, SMALL.grey5, SMALL.grey6, SMALL.olive1],
+  warm:    [SMALL.orange1, SMALL.yellow2, SMALL.yellow3, SMALL.yellow4, SMALL.maroon1, SMALL.grey4],
+  cool:    [SMALL.blue2, SMALL.blue3, SMALL.blue4, SMALL.blue5, SMALL.teal2, SMALL.teal3, SMALL.teal4, SMALL.grey3],
+  violet:  [SMALL.purple2, SMALL.purple4, SMALL.purple5, SMALL.purple6, SMALL.mauve1, SMALL.grey6],
+  mixed:   [SMALL.grey3, SMALL.grey4, SMALL.grey6, SMALL.teal4, SMALL.purple6, SMALL.yellow3, SMALL.blue5, SMALL.olive1],
+};
+
+/**
+ * Bigger holds, a couple per wall, so a wall is not uniformly small plastic.
+ *
+ * The five numbered holds (purple/yellow/teal/orange/blue) are deliberately
+ * absent: those are the hero's navigation, and reusing them as scenery would
+ * make a decorative hold look clickable.
+ */
+export const FEATURES = {
+  neutral: [BIG.rail, BIG.maroonDome, BIG.tan],
+  warm:    [BIG.orangeAlt, BIG.tan, BIG.rail],
+  cool:    [BIG.tealAlt, BIG.rail, BIG.maroonDome],
+  violet:  [BIG.magenta, BIG.maroonDome, SMALL.purple7],
+  mixed:   [BIG.rail, BIG.tan, BIG.tealAlt],
+};
+
 /* ── Project wall dressing ───────────────────────────────────────────────── */
 
 /**
- * Volumes for the project wall. Kept to the edges and the floor: anything in
- * the middle competes with the three routes and reads as clutter.
+ * Volumes for the project wall. Kept to the outer edges only: the middle
+ * belongs to the three routes, and anything else there is noise.
  */
-export const wallVolumes = [
-  { vol: VOLUME.pyramid, x: 3,  y: 26, width: 210, rot: 0 },
-  { vol: VOLUME.wedge,   x: 97, y: 16, width: 200, rot: 176, flip: true },
-  { vol: VOLUME.tall,    x: 1,  y: 62, width: 150, rot: 10 },
-  { vol: VOLUME.wedge,   x: 98, y: 56, width: 175, rot: -10 },
-  // Floor volumes: `y` is a centre, so a tall volume placed near 95% hangs off
-  // the bottom of the wall and shows below the mat. Keep centre + half-height
-  // inside the wall and let the mat cover the base.
-  { vol: VOLUME.pyramid, x: 33, y: 84, width: 160, rot: 4 },
-  { vol: VOLUME.wide,    x: 86, y: 88, width: 110, rot: 170, flip: true },
-];
-
-/**
- * Decorative holds for the project wall — enough to read as a real wall rather
- * than three routes floating in space.
- *
- * Kept clear of the three route lanes (PixelPolish 5–22%, Fridgit 43–58%,
- * Evitas 78–93%) and of the three case-study notes.
- *
- * The notes are a fixed 172px wide but placed in percentages, so the band they
- * cover *widens* as the viewport narrows — at 1280 it is ~15% rather than ~11%.
- * These are the worst-case bands to avoid, not the ones you would measure on a
- * wide screen: x 27–42% y 28–47%, x 62–77% y 28–47%, x 62–77% y 60–79%.
- *
- * Colour is biased toward neutrals near the lanes so nothing competes with a
- * route's own holds; the routes are read by colour plus the dashed connector.
- */
-export const wallScatter = [
-  // Top band
-  { hold: SMALL.grey5,   x: 14, y: 6,  width: 44, rot: -12 },
-  { hold: BIG.rail,      x: 33, y: 11, width: 120, rot: -6 },
-  { hold: SMALL.teal4,   x: 30, y: 4,  width: 30, rot: 20 },
-  { hold: SMALL.olive1,  x: 62, y: 7,  width: 34, rot: 14 },
-  { hold: SMALL.grey4,   x: 70, y: 4,  width: 32, rot: -20, flip: true },
-  { hold: SMALL.yellow4, x: 86, y: 8,  width: 40, rot: 10 },
-  { hold: SMALL.mauve1,  x: 97, y: 5,  width: 28, rot: -14 },
-  { hold: SMALL.blue4,   x: 2,  y: 12, width: 34, rot: 8 },
-
-  // Upper middle
-  { hold: SMALL.grey6,   x: 16, y: 22, width: 40, rot: 16 },
-  { hold: SMALL.maroon2, x: 28, y: 20, width: 48, rot: -10, flip: true },
-  { hold: SMALL.blue5,   x: 36, y: 25, width: 32, rot: 26 },
-  { hold: SMALL.grey4,   x: 48, y: 20, width: 30, rot: -18 },
-  { hold: SMALL.purple6, x: 62, y: 22, width: 30, rot: 12 },
-  { hold: SMALL.grey5,   x: 72, y: 26, width: 42, rot: -6,  flip: true },
-  { hold: SMALL.teal4,   x: 86, y: 20, width: 30, rot: 22 },
-  { hold: SMALL.purple5, x: 98, y: 24, width: 26, rot: -10 },
-  { hold: SMALL.olive1,  x: 2,  y: 26, width: 32, rot: 15 },
-
-  // Middle — the note bands are the gap in this row
-  { hold: SMALL.grey6,   x: 2,  y: 36, width: 38, rot: -14 },
-  { hold: SMALL.yellow4, x: 14, y: 34, width: 38, rot: 12 },
-  { hold: SMALL.purple7, x: 16, y: 46, width: 44, rot: -8,  flip: true },
-  { hold: SMALL.grey5,   x: 42, y: 22, width: 40, rot: 18 },
-  { hold: SMALL.grey4,   x: 52, y: 47, width: 28, rot: -24 },
-  { hold: SMALL.grey6,   x: 76, y: 22, width: 36, rot: 20 },
-  { hold: SMALL.olive1,  x: 98, y: 40, width: 30, rot: -12 },
-  { hold: SMALL.mauve1,  x: 60, y: 52, width: 28, rot: 8 },
-  { hold: BIG.maroonDome, x: 34, y: 51, width: 78, rot: -10 },
-  { hold: BIG.magenta,   x: 67, y: 51, width: 82, rot: 12 },
-
-  // Lower middle
-  { hold: SMALL.grey5,   x: 2,  y: 60, width: 40, rot: 10 },
-  { hold: SMALL.teal4,   x: 15, y: 60, width: 30, rot: -18 },
-  { hold: SMALL.grey6,   x: 28, y: 58, width: 42, rot: 14,  flip: true },
-  { hold: SMALL.purple6, x: 36, y: 66, width: 30, rot: -22 },
-  { hold: SMALL.yellow4, x: 30, y: 73, width: 38, rot: 16 },
-  { hold: SMALL.grey4,   x: 50, y: 60, width: 30, rot: -10 },
-  { hold: SMALL.maroon2, x: 65, y: 84, width: 46, rot: 12 },
-  { hold: SMALL.blue5,   x: 98, y: 58, width: 30, rot: 20 },
-  { hold: BIG.tan,       x: 73, y: 85, width: 72, rot: 8,   flip: true },
-
-  // Bottom band. The mat covers everything below ~90%, so nothing sits lower
-  // than 88 — a hold hidden behind the padding is just a wasted asset.
-  { hold: SMALL.grey6,   x: 2,  y: 84, width: 40, rot: -12 },
-  { hold: SMALL.yellow4, x: 16, y: 87, width: 36, rot: 18 },
-  { hold: SMALL.grey5,   x: 27, y: 76, width: 42, rot: -6 },
-  { hold: SMALL.teal4,   x: 40, y: 88, width: 30, rot: 24 },
-  { hold: SMALL.grey4,   x: 52, y: 87, width: 30, rot: -20, flip: true },
-  { hold: SMALL.purple5, x: 60, y: 88, width: 26, rot: 10 },
-  { hold: SMALL.grey6,   x: 79, y: 88, width: 38, rot: -14 },
-  { hold: SMALL.olive1,  x: 90, y: 86, width: 32, rot: 16 },
-  { hold: SMALL.mauve1,  x: 98, y: 88, width: 28, rot: -18 },
+export const workVolumes = [
+  { vol: VOLUME.pyramid, x: 2,  y: 30, width: 190, rot: 0 },
+  { vol: VOLUME.wedge,   x: 99, y: 22, width: 180, rot: 176, flip: true },
+  { vol: VOLUME.tall,    x: 1,  y: 70, width: 140, rot: 10 },
 ];

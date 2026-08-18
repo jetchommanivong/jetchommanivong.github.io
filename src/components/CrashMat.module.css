@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: var(--mat-height, 96px);
+  height: var(--mat-height, 84px);
   z-index: 7;
   background: linear-gradient(180deg, #34343A 0%, #232327 14%, #1C1C20 100%);
   box-shadow: 0 -6px 22px rgba(28, 22, 16, 0.28);
@@ -23,6 +23,14 @@
   background: rgba(0, 0, 0, 0.4);
 }
 
+/* Props share the mat with the footer, so they need their own layer rather
+   than being siblings of the text. */
+.props {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 /* Each item stands on the mat: anchored by its base, not its centre, so props
    of different heights all sit on the same floor line. */
 .item {
@@ -31,16 +39,34 @@
   bottom: var(--sink, 14px);
   transform: translateX(-50%);
   line-height: 0;
-  pointer-events: none;
+}
+
+/* ── The mat that doubles as the site footer ─────────────────────────────── */
+
+.matFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The seam would cut straight through the footer text. */
+.matFooter::after {
+  display: none;
 }
 
 @media (max-width: 900px) {
   .mat {
-    height: var(--mat-height-sm, 60px);
+    height: var(--mat-height-sm, 56px);
   }
 
   /* Gear reads as clutter at this width — the wall itself is the content. */
   .item {
     display: none;
+  }
+
+  .matFooter {
+    height: auto;
+    min-height: 56px;
+    padding: 16px 20px;
   }
 }

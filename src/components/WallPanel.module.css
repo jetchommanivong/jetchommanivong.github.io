@@ -1,0 +1,268 @@
+/* ── A single bouldering wall ─────────────────────────────────────────────────
+   Each section stands on its own wall, separated from the next by the gap
+   between panels and by the mat at its base. `data-variant` sets the angle,
+   and the angle drives everything else: how the light falls, how the panels
+   are seamed, and how much of the top cap you can see.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0 auto 28px;
+  max-width: 1320px;
+  border-radius: 16px;
+
+  /* Cleared by the mat, which is absolutely positioned at the base. */
+  padding-bottom: 84px;
+
+  /* Per-variant knobs, overridden below. */
+  --face-top: #D6D4CD;
+  --face-bottom: #C6C4BC;
+  --seam-alpha: 0.09;
+  --seam-width: 25%;
+  --dot-size: 50px 48px;
+  --dot-alpha: 0.2;
+  --cap-height: 10px;
+
+  background: var(--face-bottom);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 18px 40px rgba(28, 22, 16, 0.16),
+    0 2px 6px rgba(28, 22, 16, 0.1);
+}
+
+/* Lighting + texture + panel seams, all on one layer behind the content. */
+.face {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    /* screw holes */
+    radial-gradient(circle, rgba(30, 20, 10, var(--dot-alpha)) 1.3px, transparent 1.3px),
+    /* vertical panel seams */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(var(--seam-width) - 1px),
+      rgba(30, 26, 22, var(--seam-alpha)) calc(var(--seam-width) - 1px),
+      rgba(30, 26, 22, var(--seam-alpha)) var(--seam-width)
+    ),
+    /* how the light falls down the wall */
+    linear-gradient(180deg, var(--face-top) 0%, var(--face-bottom) 100%);
+  background-size: var(--dot-size), auto, auto;
+}
+
+/* The top edge of the wall — you see more of it the further the wall leans back. */
+.cap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--cap-height);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 22%, #EFEDE6) 0%,
+    color-mix(in srgb, var(--accent) 10%, #D9D7D0) 60%,
+    rgba(30, 26, 22, 0.14) 100%
+  );
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+
+/* Slab — leans away from you. Catches the most light, and you see a lot of
+   the top cap because the face is tilted back. */
+.panel[data-variant='slab'] {
+  --face-top: #E2E0D9;
+  --face-bottom: #CFCDC5;
+  --seam-width: 33%;
+  --seam-alpha: 0.07;
+  --cap-height: 16px;
+  --dot-alpha: 0.16;
+}
+
+/* Overhang — kicks out over your head. The top is in its own shadow and the
+   cap all but disappears, because the wall is leaning toward you. */
+.panel[data-variant='overhang'] {
+  --face-top: #BFBDB5;
+  --face-bottom: #D2D0C9;
+  --seam-width: 20%;
+  --seam-alpha: 0.11;
+  --cap-height: 5px;
+  --dot-alpha: 0.22;
+}
+
+.panel[data-variant='overhang'] .face::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 190px;
+  background: linear-gradient(180deg, rgba(30, 26, 22, 0.2), transparent);
+}
+
+/* Vertical — dead flat and evenly lit. The plainest wall in the gym. */
+.panel[data-variant='vertical'] {
+  --face-top: #D8D6CF;
+  --face-bottom: #CCCAC2;
+  --seam-width: 25%;
+  --seam-alpha: 0.1;
+  --cap-height: 9px;
+}
+
+/* Horizontal seams as well, so this one reads as a regular panel grid. */
+.panel[data-variant='vertical'] .face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 219px,
+    rgba(30, 26, 22, 0.07) 219px,
+    rgba(30, 26, 22, 0.07) 220px
+  );
+}
+
+/* Arête — a prow. One face is lit, the other is in shade, and the crease
+   between them runs the full height. */
+.panel[data-variant='arete'] {
+  --face-top: #DCDAD3;
+  --face-bottom: #D0CEC7;
+  --seam-width: 50%;
+  --seam-alpha: 0;
+  --cap-height: 11px;
+}
+
+.panel[data-variant='arete'] .face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 253, 247, 0.42) 0%, rgba(255, 253, 247, 0) 46%),
+    linear-gradient(90deg, transparent 54%, rgba(30, 26, 22, 0.14) 100%);
+}
+
+/* The crease itself. */
+.panel[data-variant='arete'] .cap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
+}
+
+/* Cave — the darkest corner of the gym. Light falls off toward the edges. */
+.panel[data-variant='cave'] {
+  --face-top: #C8C6BE;
+  --face-bottom: #BDBBB3;
+  --seam-width: 17%;
+  --seam-alpha: 0.12;
+  --cap-height: 4px;
+  --dot-alpha: 0.24;
+}
+
+.panel[data-variant='cave'] .face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 78% 62% at 50% 42%,
+    rgba(255, 253, 247, 0.34) 0%,
+    transparent 62%
+  );
+  box-shadow: inset 0 0 140px rgba(30, 26, 22, 0.22);
+}
+
+/* ── Dressing ────────────────────────────────────────────────────────────── */
+
+.dressing {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.volume {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(var(--wall-scale, 1));
+  opacity: 0.66;
+}
+
+/* Rect-placed holds: free positioning for walls whose content spans the full
+   width. Overlap is prevented in the generator, which knows each hold's box. */
+.scatterHold {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(var(--wall-scale, 1));
+}
+
+/* Gutter-placed holds.
+   `--gutter` is the real margin beside the centred content column: half of
+   whatever is left over, but never less than the section's own side padding.
+   The hold's OFFSET is a fraction of that margin, so the whole hold stays
+   outside the text at every viewport width — no clamping, and nothing to
+   re-tune when a section's max-width changes.
+
+   Its WIDTH is a fraction of the margin too, but capped: a narrow content
+   column leaves a very deep margin (Contact's 700px column leaves ~310px
+   against About's ~110px), and sizing purely off the gutter made that wall's
+   holds three times larger than every other wall's. Capping the base rather
+   than the final width keeps the size variation intact instead of flattening
+   every hold onto the same maximum. Shrinking a hold that already fit inside
+   the gutter still fits, so the no-overlap guarantee survives the cap. */
+.panel {
+  --content: 1100px;
+  --pad: 48px;
+  --gutter: max(var(--pad), (100% - var(--content)) / 2);
+  --hold-cap: 130px;
+  --hold-base: min(var(--gutter), var(--hold-cap));
+}
+
+.gutterHold {
+  position: absolute;
+  top: var(--y);
+  width: calc(var(--hold-base) * var(--k));
+  transform: translate(-50%, -50%);
+}
+
+.gutterHold[data-side='left']  { left: calc(var(--gutter) * var(--t)); }
+.gutterHold[data-side='right'] { left: calc(100% - var(--gutter) * var(--t)); }
+
+/* ── Content ─────────────────────────────────────────────────────────────── */
+
+.body {
+  position: relative;
+  z-index: 3;
+}
+
+.mat {
+  z-index: 7;
+}
+
+@media (max-width: 1440px) {
+  .panel { --wall-scale: 0.9; }
+}
+
+@media (max-width: 1180px) {
+  .panel { --wall-scale: 0.78; }
+}
+
+@media (max-width: 900px) {
+  .panel {
+    border-radius: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 56px;
+  }
+
+  /* Decorative holds crowd the copy once the wall narrows — the writing is
+     the content at this width, not the dressing. */
+  .dressing { display: none; }
+}

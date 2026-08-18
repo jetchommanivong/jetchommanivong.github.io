@@ -1,6 +1,7 @@
+/* The wall surface, its dressing and its mat all come from WallPanel. This
+   file only styles what sits on top: the routes, notes and labels. */
 .section {
-  padding: 80px 48px 120px;
-  background: transparent;
+  padding: 80px 48px 0;
 }
 
 /* ── Header ─────────────────────────────────────────────────────────────── */
@@ -37,20 +38,8 @@
   position: relative;
   width: 100%;
   min-height: 1020px;
-  padding-bottom: 96px;
-  border-radius: 14px;
   overflow: visible;
-  margin-bottom: 0;
-  border: none;
   background: transparent;
-  --wall-scale: 1;
-}
-
-/* The mat is the floor of the room, so it runs past the section's side padding
-   to the edges of the viewport rather than stopping with the content column. */
-.mat {
-  left: -48px;
-  right: -48px;
 }
 
 /* Route connector SVG */
@@ -62,27 +51,6 @@
   pointer-events: none;
   z-index: 1;
   overflow: visible;
-}
-
-/* Grey volume positioning wrapper */
-.volume {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  transform: translate(-50%, -50%) scale(var(--wall-scale));
-  z-index: 0;
-  opacity: 0.72;
-  pointer-events: none;
-}
-
-/* Decorative holds — behind the routes, never interactive */
-.scatterHold {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  transform: translate(-50%, -50%) scale(var(--wall-scale));
-  z-index: 1;
-  pointer-events: none;
 }
 
 /* Hold positioning wrapper */
@@ -262,32 +230,19 @@
   gap: 7px;
 }
 
-@media (max-width: 1440px) {
-  .wall {
-    --wall-scale: 0.88;
-  }
-}
-
 @media (max-width: 1180px) {
   .wall {
-    --wall-scale: 0.76;
     min-height: 880px;
   }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 20px 80px;
+    padding: 60px 20px 0;
   }
 
   .wall {
     min-height: 620px;
-    padding-bottom: 60px;
-  }
-
-  .mat {
-    left: -20px;
-    right: -20px;
   }
 
   .headingRow {

@@ -9,8 +9,11 @@ import styles from './PhotoHold.module.css';
  * the float animation, the resting rotation, and the hover scale would
  * otherwise overwrite one another on a single `transform`.
  *
- * `hold` is an entry from data/wallAssets ({ src, w, h }); `width` is the
- * rendered CSS width in px. Height follows the photo's real aspect ratio.
+ * `hold` is an entry from data/wallAssets ({ src, w, h }). `width` is either a
+ * number of px, or any CSS length ('100%', 'calc(...)') for holds that have to
+ * size themselves against their container. Either way the height follows the
+ * photo's real aspect ratio — via arithmetic for numbers, via `aspect-ratio`
+ * for CSS lengths, since the px height cannot be known here.
  */
 export default function PhotoHold({
   hold,
@@ -31,7 +34,8 @@ export default function PhotoHold({
   className = '',
   style,
 }) {
-  const height = Math.round((width * hold.h) / hold.w);
+  const fluid = typeof width === 'string';
+  const height = fluid ? undefined : Math.round((width * hold.h) / hold.w);
 
   const restShadow = 'drop-shadow(0 5px 9px rgba(28, 22, 16, 0.34))';
   const filter =
@@ -63,14 +67,15 @@ export default function PhotoHold({
             className={styles.img}
             src={hold.src}
             alt={alt}
-            width={width}
-            height={height}
+            width={fluid ? hold.w : width}
+            height={fluid ? hold.h : height}
             draggable={false}
             loading="lazy"
             decoding="async"
             style={{
               width,
-              height,
+              height: fluid ? 'auto' : height,
+              aspectRatio: fluid ? `${hold.w} / ${hold.h}` : undefined,
               filter,
               transform: flip ? 'scaleX(-1)' : undefined,
             }}

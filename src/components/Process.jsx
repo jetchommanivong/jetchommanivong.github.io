@@ -1,5 +1,10 @@
 import { motion } from 'framer-motion';
+import WallPanel from './WallPanel';
+import { POOLS, FEATURES } from '../data/wallAssets';
 import styles from './Process.module.css';
+
+/* Matches .inner's max-width — the dressing goes in the margins beside it. */
+const CONTENT = 1100;
 
 /* Placeholder copy — rewrite each step in your own words before you send this
    to anyone. The structure is what matters here, not the wording. */
@@ -39,7 +44,18 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className={styles.section}>
+    <WallPanel
+      id="process"
+      variant="vertical"
+      accent="var(--hold-teal)"
+      seed={23}
+      pool={POOLS.cool}
+      featurePool={FEATURES.cool}
+      featureCount={2}
+      holdCount={6}
+      contentWidth={CONTENT}
+      className={styles.section}
+    >
       <div className={styles.inner}>
         <div className={styles.header}>
           <p className="section-tag">Process</p>
@@ -72,6 +88,6 @@ export default function Process() {
           ))}
         </ol>
       </div>
-    </section>
+    </WallPanel>
   );
 }

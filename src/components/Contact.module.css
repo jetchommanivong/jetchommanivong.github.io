@@ -1,15 +1,11 @@
 .section {
   padding: 120px 48px 0;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
 }
 
 .inner {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
-  flex: 1;
   padding-bottom: 100px;
 }
 
@@ -81,15 +77,16 @@
   border-color: rgba(0, 0, 0, 0.28);
 }
 
+/* Sits on the crash mat at the base of the wall, so it reads light-on-dark. */
 .footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 28px 0;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .footer p {
   font-size: 0.8rem;
-  color: var(--chalk-2);
+  color: rgba(247, 245, 239, 0.82);
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -97,7 +94,7 @@
 
 .footerSub {
   margin-top: 4px;
-  opacity: 0.6;
+  color: rgba(247, 245, 239, 0.5) !important;
 }
 
 @media (max-width: 640px) {

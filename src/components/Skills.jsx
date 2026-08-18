@@ -1,5 +1,12 @@
 import { motion } from 'framer-motion';
+import WallPanel from './WallPanel';
+import { POOLS, FEATURES } from '../data/wallAssets';
 import styles from './Skills.module.css';
+
+/* Matches .inner's max-width — the dressing goes in the margins beside it. */
+const CONTENT = 1100;
+
+const MAT = [{ prop: 'liquidChalk', x: 9, width: 36, rot: -5, sink: 10 }];
 
 /* Grades are self-assessed and deliberately not all V4 — the honest spread is
    more convincing to an interviewer than a wall of maxed-out bars. */
@@ -13,20 +20,31 @@ const SKILLS = [
 ];
 
 const TOOLS = [
-  'Figma', 'FigJam', 'Adobe Illustrator', 'Photoshop',
+  'Figma', 'Adobe Illustrator', 'Photoshop',
   'React', 'Vite', 'Firebase', 'HTML & CSS', 'Git',
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className={styles.section}>
+    <WallPanel
+      id="skills"
+      variant="arete"
+      accent="var(--hold-orange)"
+      seed={37}
+      pool={POOLS.warm}
+      featurePool={FEATURES.warm}
+      featureCount={2}
+      holdCount={6}
+      contentWidth={CONTENT}
+      matItems={MAT}
+      className={styles.section}
+    >
       <div className={styles.inner}>
         <div className={styles.header}>
           <p className="section-tag">Skills</p>
           <h2 className={styles.heading}>My grades</h2>
           <p className={styles.intro}>
-            Climbers grade problems by how hard they are to send. These are mine
-            — what I reach for confidently, and what I'm still projecting.
+            Climbers grade problems by how hard they are to send. These are mine.
           </p>
         </div>
 
@@ -65,13 +83,13 @@ export default function Skills() {
             <div className={styles.growing}>
               <p className={`section-tag ${styles.blockTitle}`}>Still projecting</p>
               <p>
-                Motion design, accessibility auditing, and getting properly
-                fluent with design tokens — the moves I haven't stuck yet.
+                Illustrator, Front-end Development
+                
               </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </WallPanel>
   );
 }

@@ -85,6 +85,6 @@ export const projects = ROUTES.map(route => {
   };
 });
 
-/* Decorative holds for this wall now live in wallAssets.js as `wallScatter`,
-   alongside the volumes and gear, so the whole dressing is described in one
-   place and can be checked against the note positions in one read. */
+/* Decorative holds are no longer listed here or in wallAssets. WallPanel
+   generates them from a seed (see lib/scatter.js) and Wall.jsx passes the
+   keep-out rects for these three lanes and their notes. */

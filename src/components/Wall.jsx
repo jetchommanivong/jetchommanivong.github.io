@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Hold from './Hold';
-import PhotoHold from './PhotoHold';
-import CrashMat from './CrashMat';
+import WallPanel from './WallPanel';
 import { projects } from '../data/projects';
-import { wallScatter, wallVolumes } from '../data/wallAssets';
+import { POOLS, FEATURES, workVolumes } from '../data/wallAssets';
 import { useRouteGeometry, buildConnector } from '../lib/route';
 import styles from './Wall.module.css';
 
@@ -14,15 +13,34 @@ const holdIndex = (projectIndex, holdIdx) =>
 
 const TOTAL_HOLDS = projects.reduce((n, p) => n + p.holds.length, 0);
 
-/* ── Wall dressing ───────────────────────────────────────────────────────── */
+/**
+ * The three routes and their notes own most of this wall, so the decorative
+ * scatter only gets the gaps between the lanes. Holding it to eight holds is
+ * deliberate: this wall carries more real content than any other, and the
+ * previous forty-five turned the routes into noise.
+ *
+ * Lanes: PixelPolish 5–22%, Fridgit 43–58%, Evitas 78–93%.
+ * Notes are 172px wide, so their band widens as the viewport narrows — these
+ * rects are the worst case, not what you would measure on a wide screen.
+ */
+const WORK_KEEP_OUT = [
+  { x: [2, 26], y: [8, 90] },
+  { x: [40, 62], y: [8, 90] },
+  { x: [75, 97], y: [8, 90] },
+  { x: [25, 43], y: [27, 49] },
+  { x: [60, 78], y: [27, 49] },
+  { x: [60, 78], y: [59, 81] },
+];
 
-function WallVolume({ x, y, vol, width, rot = 0, flip = false }) {
-  return (
-    <div className={styles.volume} style={{ '--x': `${x}%`, '--y': `${y}%` }}>
-      <PhotoHold hold={vol} width={width} rot={rot} flip={flip} float={false} />
-    </div>
-  );
-}
+/* Smaller than other walls' dressing — these sit between working routes. */
+const WIDTHS = [26, 40];
+const FEATURE_WIDTHS = [58, 78];
+
+/* The hero mat already carries the chalk bag and brush. Repeating them here
+   read as copy-paste, so this wall gets the one prop that is its own. */
+const WORK_MAT = [
+  { prop: 'shoes', x: 12, width: 128, rot: -3, sink: 12 },
+];
 
 /* ── Sticky note card pinned next to each route ─────────────────────────── */
 /* `dimmed` means *another* route is hovered. At rest the note stays fully
@@ -78,7 +96,23 @@ export default function Wall({ onProjectClick }) {
   });
 
   return (
-    <section id="work" className={styles.section}>
+    <WallPanel
+      id="work"
+      variant="overhang"
+      accent="var(--hold-yellow)"
+      seed={2}
+      pool={POOLS.mixed}
+      featurePool={FEATURES.mixed}
+      featureCount={2}
+      holdCount={7}
+      keepOut={WORK_KEEP_OUT}
+      widths={WIDTHS}
+      featureWidths={FEATURE_WIDTHS}
+      volumes={workVolumes}
+      matItems={WORK_MAT}
+      matSeam="41%"
+      className={styles.section}
+    >
       <div className={styles.header}>
         <p className="section-tag">Portfolio</p>
         <div className={styles.headingRow}>
@@ -90,29 +124,6 @@ export default function Wall({ onProjectClick }) {
       </div>
 
       <div className={styles.wall} ref={wallRef}>
-
-        {/* Background wall volumes */}
-        {wallVolumes.map((vol, i) => (
-          <WallVolume key={`vol-${i}`} {...vol} />
-        ))}
-
-        {/* Decorative holds — the wall the routes are set on */}
-        {wallScatter.map((s, i) => (
-          <div
-            key={`sc-${i}`}
-            className={styles.scatterHold}
-            style={{ '--x': `${s.x}%`, '--y': `${s.y}%` }}
-          >
-            <PhotoHold
-              hold={s.hold}
-              width={s.width}
-              rot={s.rot}
-              flip={s.flip}
-              floatDuration={2.6 + ((i * 37) % 16) / 10}
-              floatDelay={-((i * 13) % 40) / 10}
-            />
-          </div>
-        ))}
 
         {/* Curved dashed route lines */}
         <svg
@@ -243,21 +254,7 @@ export default function Wall({ onProjectClick }) {
             tilt={i % 2 === 0 ? -1.4 : 1.1}
           />
         ))}
-
-        {/* The floor, so the wall reads as a room rather than a diagram */}
-        <CrashMat
-          className={styles.mat}
-          seam="41%"
-          items={[
-            { prop: 'shoes',       x: 11, width: 132, rot: -3, sink: 12 },
-            { prop: 'chalkBag',    x: 24, width: 112, rot: 2,  sink: 22 },
-            { prop: 'brush',       x: 31, width: 72,  rot: 9,  sink: 4 },
-            // Right of the seam, so the far half of the mat is not bare
-            { prop: 'carabiner',   x: 68, width: 30,  rot: 74, sink: 6 },
-            { prop: 'liquidChalk', x: 87, width: 34,  rot: -4, sink: 8 },
-          ]}
-        />
       </div>
-    </section>
+    </WallPanel>
   );
 }

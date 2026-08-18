@@ -107,11 +107,28 @@ export const caseStudies = [
               'If the site could not price a booking on its own, it would not remove any work from her day.',
           },
           {
-            type: 'slot',
-            title: 'Evidence: the original workflow',
-            hint:
-              'A screenshot of the DM quoting back-and-forth, her old pricing note, or the paper diary she ' +
-              'used to block time. Anything that shows the "before" makes the problem concrete.',
+            type: 'gallery',
+            columns: 2,
+            items: [
+              {
+                src: '/projects/pixelpolish-booking-insta.jpg',
+                alt:
+                  'Instagram DM thread: a client asks whether there is availability tomorrow afternoon ' +
+                  'and sends two reference photos of nail sets she likes',
+                caption:
+                  'Every booking started with a Instagram DM where the client would have to send ' +
+                  'photos. Nothing about the request is structured, priced, or in a calendar yet.',
+              },
+              {
+                src: '/projects/pixelpolish-booking-insta-2.jpg',
+                alt:
+                  'The rest of the thread: the owner offers a time, quotes ninety dollars, and settles on ' +
+                  '3pm across several more messages',
+                caption:
+                  'Another problem is unavailability for the business owner where clients ' +
+                  'would have to wait for a response. The site needed to remove this friction and allow clients to book without waiting for a reply.',
+              },
+            ],
           },
         ],
       },
